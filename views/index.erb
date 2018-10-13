@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/style.css">
+    <meta charset='UTF-8' />
+    <title>My Profil</title>
+  </head>
+  <body class='container'>
+    <div id="header">Sulman Bashir</div>
+        <div id="content_header">
+            <div class="picture" id="pic"></div>
+            <div class="editPicture">
+                <img src="../assets/img/photo-camera.png" onclick="change()">
+            </div>
+        </div>
+        <% i = 0 %>
+        <% DB.each do |value| %>
+        <% string_hashed = Hash.new("cut") %>
+        <% string_hashed = value %>
+        <% title = string_hashed.values[0] %>
+        <% content = string_hashed.values[1] %>
+        <% if string_hashed.values[2] =~ /\A\d+\z/ ? pics = 'http://cdn.mecatrouve.com/media/images/pages/no-image--500x500.png?v=2016-11-2?v=2016-11-2' : pics = string_hashed.values[2]%>
+        <% if string_hashed.values[2] == '4'  || string_hashed.values[2] == '' ? rating = string_hashed.values[2] : rating = string_hashed.values[3] %>
+        <% end %>
+        <div id='articles'>
+            <div class="article_title"><%= title %></div>
+            <div class="article_picture"><img src='<%= pics %>' height="250" width="250"></div>
+            <div class="article_content"><%= content%></div>
+            <div class="rating"><center><%= rating %></center></div>
+            <a id="open_comments<%=i%>" onclick="open_comment('<%= i %>')">Commentaires</a>
+            <div id="comments" class="comment">
+                <div class="comment_content">
+                    <div class="comment_header">
+                        <span class="close">&times;</span>
+                        <h2>Commentaires</h2>
+                    </div>
+                    <div id="comms_body" class="comment_body"></div>
+                    <div class="comment_footer">
+                        <center><h3>...</h3></center>
+                    </div>
+                </div>
+            </div>
+            <% i = i + 1 %>
+        </div>
+        <% end %>
+        <% end %>
+  </body>
+<script>
+function open_comment(num) {
+    var modal = document.getElementById('comments');
+    var btn0 = document.getElementById("open_comments0");
+    var btn1 = document.getElementById("open_comments1");
+    var btn2 = document.getElementById("open_comments2");
+    var btn3 = document.getElementById("open_comments3");
+    var btn4 = document.getElementById("open_comments4");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn0.onclick = function() {
+        if (num == 0) {
+            <%= j = 0 %>
+        }
+        modal.style.display = "block";
+        document.getElementById('comms_body').innerHTML = "<% COMMENTS[j].each do |coms| %><% all_comms = Hash.new('coms') %><% all_comms = coms %>'<p>'<%= all_comms %>'</p>'<% end %>";
+    }
+    btn1.onclick = function() {
+        if (num == 1) {
+            <%= j = 1 %>
+        }
+        modal.style.display = "block";
+        document.getElementById('comms_body').innerHTML = "<% COMMENTS[j].each do |coms| %><% all_comms = Hash.new('coms') %><% all_comms = coms %>'<p>'<%= all_comms %>'</p>'<% end %>";
+    }
+    btn2.onclick = function() {
+        if (num == 2) {
+            <%= j = 2 %>
+        }
+        modal.style.display = "block";
+        document.getElementById('comms_body').innerHTML = "<% COMMENTS[j].each do |coms| %><% all_comms = Hash.new('coms') %><% all_comms = coms %>'<p>'<%= all_comms %>'</p>'<% end %>";
+    }
+    btn3.onclick = function() {
+        if (num == 3) {
+            <%= j = 3 %>
+        }
+        modal.style.display = "block";
+        document.getElementById('comms_body').innerHTML = "<% COMMENTS[j].each do |coms| %><% all_comms = Hash.new('coms') %><% all_comms = coms %>'<p>'<%= all_comms %>'</p>'<% end %>";
+    }
+     btn4.onclick = function() {
+        if (num == 4) {
+            <%= j = 4 %>
+        }
+        modal.style.display = "block";
+        document.getElementById('comms_body').innerHTML = "<% COMMENTS[j].each do |coms| %><% all_comms = Hash.new('coms') %><% all_comms = coms %>'<p>'<%= all_comms %>'</p>'<% end %>";
+    }
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    
+}
+function change() {
+    document.getElementById('pic').style.backgroundImage = "url('http://static.ddmcdn.com/gif/recipes/mona-lisa-200x200-140502.jpg')";
+}
+</script>
+</html>
